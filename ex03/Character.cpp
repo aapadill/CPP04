@@ -6,7 +6,7 @@
 /*   By: aapadill <aapadill@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 20:48:03 by aapadill          #+#    #+#             */
-/*   Updated: 2025/05/15 20:56:40 by aapadill         ###   ########.fr       */
+/*   Updated: 2025/05/15 21:34:19 by aapadill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,18 @@ Character &Character::operator=(Character const &other)
 	//basically replacing the current object with the other one
 	if (this != &other)
 	{
-        for (int i = 0; i < 4; ++i)
-            delete _inventory[i]; //delete everything in the inventory
-        _name = other._name;
-        for (int i = 0; i < 4; ++i)
+		for (int i = 0; i < 4; ++i)
+			delete _inventory[i]; //delete everything in the inventory
+		_name = other._name;
+		for (int i = 0; i < 4; ++i)
 		{
-            if (other._inventory[i]) //does other have a saved materia?
-                _inventory[i] = other._inventory[i]->clone(); //clone it
-            else
-                _inventory[i] = nullptr; //if not, null
-        }
-    }
-    return *this;
+			if (other._inventory[i]) //does other have a saved materia?
+				_inventory[i] = other._inventory[i]->clone(); //clone it
+			else
+				_inventory[i] = nullptr; //if not, null
+		}
+	}
+	return *this;
 }
 
 Character::~Character()
@@ -63,7 +63,38 @@ std::string const &Character::getName() const
 	return _name;
 }
 
-//equip
-//unequip
-//use
+void Character::equip(AMateria* m)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		if (!_inventory[i])
+		{
+			_inventory[i] = m;
+			std::cout << _name << " equips " << m->getType() << std::endl;
+			return;
+		}
+	}
+	std::cout << _name << "'s inventory is full" << std::endl;
+}
+
+void Character::unequip(int idx)
+{
+	if (idx >= 0 && idx < 4)
+	{
+		_inventory[idx] = nullptr;
+		std::cout << _name << " unequips slot " << idx << std::endl;
+	}
+	else
+		std::cout << _name << " cannot unequip slot " << idx << std::endl;
+}
+
+void Character::use(int idx, ICharacter &target)
+{
+	if (idx >= 0 && idx < 4 && _inventory[idx])
+	{
+		_inventory[idx]->use(target);
+	}
+	else
+		std::cout << _name << " cannot use slot " << idx << std::endl;
+}
 
