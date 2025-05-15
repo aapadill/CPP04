@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   ICharacter.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aapadill <aapadill@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/13 12:10:16 by aapadill          #+#    #+#             */
-/*   Updated: 2025/05/13 12:10:17 by aapadill         ###   ########.fr       */
+/*   Created: 2025/05/15 20:04:34 by aapadill          #+#    #+#             */
+/*   Updated: 2025/05/15 20:08:17 by aapadill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include <iostream>
 #include <string>
 
-class Animal  //aka interface in java, in cpp they are called abstract classes
+class AMateria;
+
+class ICharacter //basically an interface, but here it's called abstract class
 {
-	protected:
-		std::string _type;
-
 	public:
-		Animal();
-		Animal(const Animal &other);
-		Animal &operator=(const Animal &other);
-		virtual ~Animal();
-
-		virtual void makeSound() const = 0; //pure virtual
-		std::string getType() const;
+		virtual ~ICharacter() {}
+		/* pure virtuals */
+		virtual std::string const &getName() const = 0;
+		virtual void equip(AMateria *m) = 0;
+		virtual void unequip(int idx) = 0;
+		virtual void use(int idx, ICharacter &target) = 0;
 };

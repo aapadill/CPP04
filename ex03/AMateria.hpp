@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   AMateria.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aapadill <aapadill@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/13 12:10:16 by aapadill          #+#    #+#             */
-/*   Updated: 2025/05/13 12:10:17 by aapadill         ###   ########.fr       */
+/*   Created: 2025/05/15 19:59:22 by aapadill          #+#    #+#             */
+/*   Updated: 2025/05/15 20:09:03 by aapadill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include <iostream>
 #include <string>
 
-class Animal  //aka interface in java, in cpp they are called abstract classes
+class ICharacter;
+
+class AMateria //abstract class aka interface
 {
 	protected:
 		std::string _type;
 
 	public:
-		Animal();
-		Animal(const Animal &other);
-		Animal &operator=(const Animal &other);
-		virtual ~Animal();
+		AMateria(std::string const &type);
+		AMateria(AMateria const &other);
+		AMateria &operator=(AMateria const &other);
+		virtual ~AMateria();
 
-		virtual void makeSound() const = 0; //pure virtual
-		std::string getType() const;
+		std::string const &getType() const; //returns the materia type
+		virtual AMateria *clone() const = 0; //pure virtual
+		virtual void use(ICharacter &target);
 };

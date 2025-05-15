@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   IMateriaSource.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aapadill <aapadill@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/13 12:10:16 by aapadill          #+#    #+#             */
-/*   Updated: 2025/05/13 12:10:17 by aapadill         ###   ########.fr       */
+/*   Created: 2025/05/15 20:13:22 by aapadill          #+#    #+#             */
+/*   Updated: 2025/05/15 20:13:26 by aapadill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include <iostream>
 #include <string>
+#include "AMateria.hpp"
 
-class Animal  //aka interface in java, in cpp they are called abstract classes
+class IMateriaSource
 {
-	protected:
-		std::string _type;
-
 	public:
-		Animal();
-		Animal(const Animal &other);
-		Animal &operator=(const Animal &other);
-		virtual ~Animal();
-
-		virtual void makeSound() const = 0; //pure virtual
-		std::string getType() const;
+		virtual ~IMateriaSource() {}
+		virtual void learnMateria(AMateria *m) = 0; //pure virtual
+		virtual AMateria *createMateria(std::string const &type) = 0; //pure virtual
 };
