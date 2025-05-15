@@ -12,9 +12,13 @@
 
 #pragma once
 #include "Animal.hpp"
+#include "Brain.hpp"
 
 class Cat : public Animal
 {
+	private:
+		Brain *_brain;
+
 	public:
 		Cat();
 		Cat(const Cat &other);
@@ -22,4 +26,6 @@ class Cat : public Animal
 		virtual ~Cat();
 
 		void makeSound() const override;
+		Brain &getBrain();
+    	const Brain &getBrainRef() const;
 };

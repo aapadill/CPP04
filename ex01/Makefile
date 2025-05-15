@@ -6,11 +6,12 @@ INFILES =	Animal.cpp \
 			Cat.cpp \
 			WrongCat.cpp \
 			WrongAnimal.cpp \
+			Brain.cpp \
 			main.cpp
 
 OBJFILES = $(INFILES:.cpp=.o)
 
-NAME = polymorphism 
+NAME = world_on_fire 
 
 all: $(NAME)
 

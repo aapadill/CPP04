@@ -12,13 +12,13 @@
 
 #include "Cat.hpp"
 
-Cat::Cat()
+Cat::Cat(): _brain(new Brain())
 {
 	_type = "Cat";
 	std::cout << "Cat default constructor called" << std::endl;
 }
 
-Cat::Cat(const Cat &other): Animal(other)
+Cat::Cat(const Cat &other): Animal(other), _brain(new Brain(*other._brain))
 {
 	std::cout << "Cat copy constructor called" << std::endl;
 }
@@ -29,16 +29,28 @@ Cat &Cat::operator=(const Cat &other)
 	if (this != &other)
 	{
 		Animal::operator=(other);
+		*_brain = *other._brain; //deepcopy
 	}
 	return *this;
 }
 
 Cat::~Cat()
 {
+	delete _brain;
 	std::cout << "Cat destructor called" << std::endl;
 }
 
 void Cat::makeSound() const
 {
 	std::cout << "<" << _type << ">: Meow meow!" << std::endl;
+}
+
+Brain &Cat::getBrain()
+{
+	return *_brain;
+}
+
+const Brain &Cat::getBrainRef() const
+{
+	return *_brain;
 }

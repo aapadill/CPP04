@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.hpp                                            :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aapadill <aapadill@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/13 12:10:47 by aapadill          #+#    #+#             */
-/*   Updated: 2025/05/13 12:10:47 by aapadill         ###   ########.fr       */
+/*   Created: 2025/05/15 15:51:07 by aapadill          #+#    #+#             */
+/*   Updated: 2025/05/15 15:56:21 by aapadill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include "Animal.hpp"
+#include <iostream>
+#include <string>
 
-class Cat : public Animal
+class Brain
 {
-	public:
-		Cat();
-		Cat(const Cat &other);
-		Cat &operator=(const Cat &other);
-		virtual ~Cat();
+	private:
+		std::string _ideas[100];
 
-		void makeSound() const override;
+	public:
+		Brain();
+		Brain(const Brain &other);
+		Brain &operator=(const Brain &other);
+		~Brain();
+
+		void setIdea(int index, const std::string &idea);
+		std::string getIdea(int index) const;
 };
