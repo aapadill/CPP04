@@ -15,7 +15,7 @@
 
 class AMateria;
 
-class ICharacter //basically an interface, but here it's called abstract class
+class ICharacter //interface: pure virtuals, including destructor
 {
 	public:
 		virtual ~ICharacter() {}

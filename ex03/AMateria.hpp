@@ -15,18 +15,19 @@
 
 class ICharacter;
 
-class AMateria //abstract class aka interface
+class AMateria //abstract class
 {
 	protected:
 		std::string _type;
 
 	public:
+		AMateria() = delete;
 		AMateria(std::string const &type);
 		AMateria(AMateria const &other);
 		AMateria &operator=(AMateria const &other);
 		virtual ~AMateria();
 
-		std::string const &getType() const; //returns the materia type
+		std::string const &getType() const;
 		virtual AMateria *clone() const = 0; //pure virtual
 		virtual void use(ICharacter &target);
 };

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "MateriaSource.hpp"
+#include "AMateria.hpp"
 #include <iostream>
 
 MateriaSource::MateriaSource()

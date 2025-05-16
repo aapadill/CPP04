@@ -27,4 +27,3 @@ class MateriaSource: public IMateriaSource
 		virtual void learnMateria(AMateria *m) override;
 		virtual AMateria *createMateria(std::string const &type) override;
 };
-

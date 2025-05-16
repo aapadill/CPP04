@@ -14,7 +14,7 @@
 #include "ICharacter.hpp"
 #include "AMateria.hpp"
 
-class Character : public ICharacter
+class Character: public ICharacter
 {
 	private:
 		std::string _name;

@@ -13,7 +13,7 @@
 #include "Cure.hpp"
 #include <iostream>
 
-Cure::Cure() : AMateria("cure")
+Cure::Cure(): AMateria("cure")
 {
 	std::cout << "Cure default constructor called" << std::endl;
 }
