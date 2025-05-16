@@ -6,7 +6,7 @@
 /*   By: aapadill <aapadill@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 21:53:30 by aapadill          #+#    #+#             */
-/*   Updated: 2025/05/16 14:09:16 by aapadill         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:14:09 by aapadill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,37 +20,80 @@
 
 int main()
 {
-	IMateriaSource *src = new MateriaSource();
+	IMateriaSource* src	  = nullptr;
+	ICharacter*	 alice	= nullptr;
+	ICharacter*	 bob	  = nullptr;
+	Character*	  copyAlice= nullptr;
 
-	src->learnMateria(new Ice());
-	src->learnMateria(new Cure());
+	try
+	{
+		//1) build the materia source and learn spells
+		std::cout << "--- materia source test ---\n";
+		src = new MateriaSource();
+		src->learnMateria(new Ice());
+		src->learnMateria(new Cure());
 
-	ICharacter *alice = new Character("Alice");
-	ICharacter *bob   = new Character("Bob");
+		//test learning more than 4
+		std::cout << "\n-- learning more than 4 materias --\n";
+		src->learnMateria(new Ice());
+		src->learnMateria(new Cure());
+		std::cout << "-- fifth materia incoming --\n";
+		src->learnMateria(new Ice());
 
-	AMateria *m1 = src->createMateria("ice");
-	AMateria *m2 = src->createMateria("cure");
+		//2) create two characters
+		std::cout << "\n--- character test ---\n";
+		alice = new Character("Alice");
+		bob   = new Character("Bob");
 
-	alice->equip(m1);
-	alice->equip(m2);
+		//3) create some materias by type
+		std::cout << "\n--- materia creation test ---\n";
+		AMateria* m1 = src->createMateria("ice");
+		AMateria* m2 = src->createMateria("cure");
+		std::cout << "-- invalid materia creation incoming --\n";
+		AMateria* m3 = src->createMateria("fire");
 
-	alice->use(0, *bob);
-	alice->use(1, *bob);
+		//4) equip materias
+		std::cout << "\n-- Alice equips materias --\n";
+		alice->equip(m1);
+		alice->equip(m2);
+		std::cout << "-- invalid equip (nullptr) incoming --\n";
+		alice->equip(m3);
 
-	//deep‐copy test on characters
-	Character copyAlice(*static_cast<Character*>(alice));
-	std::cout << "\n-- equip more on original --\n";
-	AMateria *m3 = src->createMateria("ice");
-	alice->equip(m3);
-	std::cout << "-- original uses slot 2 --\n";
-	alice->use(2, *bob);
-	std::cout << "-- copy uses slot 2 (should do nothing) --\n";
-	copyAlice.use(2, *bob);
+		//5) use them
+		std::cout << "\n-- Alice uses slot 0 and 1 on Bob --\n";
+		alice->use(0, *bob); //ice
+		alice->use(1, *bob); //cure
 
+		//6) edge‐cases: invalid slots
+		std::cout << "\n-- Invalid uses (should do nothing) --\n";
+		alice->use(-1, *bob);
+		alice->use(99, *bob);
+
+		//7)unequip and reuse
+		std::cout << "\n-- Unequip slot 1 and try to use --\n";
+		alice->unequip(1);
+		alice->use(1, *bob);
+
+		//8) deep‐copy test
+		std::cout << "\n--- Deep‐copy test ---\n";
+		copyAlice = new Character(*static_cast<Character*>(alice));
+	
+		std::cout << "\n--- Original equips another ice ---\n";
+		AMateria* m4 = src->createMateria("ice");
+		alice->equip(m4);
+		alice->use(2, *bob);
+
+		std::cout << "\n--- Copy tries slot 2 (should do nothing) ---\n";
+		copyAlice->use(2, *bob);
+	}
+	catch (const std::bad_alloc &e)
+	{
+		std::cerr << "Allocation failed: " << e.what() << std::endl;
+	}
+	// cleanup
 	delete src;
 	delete alice;
 	delete bob;
-	//equipped Materias are deleted by character’s destructor
-
+	delete copyAlice;
 	return 0;
 }

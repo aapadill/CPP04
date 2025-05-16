@@ -65,6 +65,8 @@ std::string const &Character::getName() const
 
 void Character::equip(AMateria* m)
 {
+	if (m == nullptr)
+        return;
 	for (int i = 0; i < 4; i++)
 	{
 		if (!_inventory[i])
