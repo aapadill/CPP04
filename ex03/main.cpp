@@ -24,21 +24,23 @@ int main()
 	ICharacter*	 alice	= nullptr;
 	ICharacter*	 bob	  = nullptr;
 	Character*	  copyAlice= nullptr;
+	Ice *		ice = new Ice();
+	Cure *		cure = new Cure();
 
 	try
 	{
 		//1) build the materia source and learn spells
 		std::cout << "--- materia source test ---\n";
 		src = new MateriaSource();
-		src->learnMateria(new Ice());
-		src->learnMateria(new Cure());
+		src->learnMateria(ice);
+		src->learnMateria(cure);
 
 		//test learning more than 4
 		std::cout << "\n-- learning more than 4 materias --\n";
-		src->learnMateria(new Ice());
-		src->learnMateria(new Cure());
+		src->learnMateria(ice);
+		src->learnMateria(cure);
 		std::cout << "-- fifth materia incoming --\n";
-		src->learnMateria(new Ice());
+		src->learnMateria(ice);
 
 		//2) create two characters
 		std::cout << "\n--- character test ---\n";
@@ -71,7 +73,9 @@ int main()
 
 		//7)unequip and reuse
 		std::cout << "\n-- Unequip slot 1 and try to use --\n";
-		alice->unequip(1);
+		alice->unequip(1); //cure
+		delete m2;
+		m2 = nullptr;
 		alice->use(1, *bob);
 
 		//8) deep‐copy test
@@ -95,5 +99,7 @@ int main()
 	delete alice;
 	delete bob;
 	delete copyAlice;
+	delete ice;
+	delete cure;
 	return 0;
 }
